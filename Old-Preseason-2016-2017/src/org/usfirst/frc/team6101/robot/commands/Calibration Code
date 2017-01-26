@@ -1,0 +1,35 @@
+Encoder rEncoder = new Encoder(RobotMap.EncoderMap.RIGHT_ENCODER_FIRST_PORT, RobotMap.EncoderMap.RIGHT_ENCODER_SECOND_PORT, false, Encoder.EncodingType.k4X); 
+Encoder lEncoder = new Encoder(RobotMap.EncoderMap.LEFT_ENCODER_FIRST_PORT, RobotMap.EncoderMap.LEFT_ENCODER_SECOND_PORT, false, Encoder.EncodingType.k4X);
+//"false" = do not invert direction.
+
+rEncoder.reset();
+lEncoder.reset();
+//Set encoders to 0 
+
+rEncoder.start();
+lEncoder.start();
+//Start encoders
+
+//*Run motors x number of seconds here*
+
+rEncoder.stop();
+lEncoder.stop();
+//Stop encoders from counting
+
+int rRevs = rEncoder.get();
+int lRevs = lEncoder.get();
+//store the number of revolutions during calibration period as "rRevs" and "lRevs"
+
+If (rRevs > lRevs) {
+        long rDrift = lRevs/rRevs;
+long lDrift = 1;
+//if number of the right motor is more than the left motor the robot will turn right
+} else if (rRevs < lRevs) {
+long rDrift = 1;
+long lDrift = rRevs/lRevs;
+//if number of the right motor is less than the left motor the robot will turn left
+} else (rRevs = lRevs) {
+        long rDrift = 1;
+        long lDrift = 1;
+//If the number of revolutions for both the left and right motors they both won’t change the direction (stay straight)
+}
